@@ -32,7 +32,7 @@ test('real PostgreSQL queue: idempotency, serialization, green/red history, canc
     const claims = await Promise.all([repo.claim(), repo.claim()]);
     assert.equal(claims.filter(Boolean).length, 1);
     await db.updateTable('audit_runs').set({ lease_until: new Date(0) }).where('public_id', '=', recover.publicId).execute();
-    assert.equal(await repo.claim(), null);
+    assert.deepEqual(await repo.pending(), []);
     assert.equal((await repo.detail(recover.publicId))?.status, 'interrupted');
     assert.equal((await repo.detail(recover.publicId))?.steps.length, 0);
     const headers = { host: '127.0.0.1:4395', origin: 'http://127.0.0.1:4395', 'idempotency-key': key() };

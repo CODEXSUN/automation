@@ -19,7 +19,7 @@ const columns: MasterListColumn<RunView>[] = [
   { id: 'durationMs', label: 'Execution (ms)', value: run => run.durationMs ?? '' },
 ];
 function idFromPath() { return /^\/runs\/([a-z0-9]{8})$/.exec(window.location.pathname)?.[1]; }
-export default function RunsPage({ onHeaderActions, reviewOnly = false }: { onHeaderActions: (actions: ReactNode) => void; reviewOnly?: boolean }) {
+export default function RunsPage({ onHeaderActions, reviewOnly = false, onReviewDirty, navigateToRun }: { onReviewDirty:(dirty:boolean)=>void; navigateToRun:(id?:string)=>void; onHeaderActions: (actions: ReactNode) => void; reviewOnly?: boolean }) {
   const [id, setId] = useState(idFromPath);
   const [runs, setRuns] = useState<RunView[]>([]);
   const [detail, setDetail] = useState<RunDetail>();
@@ -27,11 +27,11 @@ export default function RunsPage({ onHeaderActions, reviewOnly = false }: { onHe
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState('');
+  useEffect(()=>{onReviewDirty(!!note.trim());return ()=>onReviewDirty(false);},[note,onReviewDirty]);
   const [revision, setRevision] = useState(0);
   const navigate = useCallback((next?: string) => {
-    window.history.pushState(null, '', next ? `/runs/${next}` : '/runs');
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  }, []);
+    navigateToRun(next);
+  }, [navigateToRun]);
   useEffect(() => { const sync = () => setId(idFromPath()); window.addEventListener('popstate', sync); return () => window.removeEventListener('popstate', sync); }, []);
   useEffect(() => {
     const controller = new AbortController();
@@ -56,11 +56,11 @@ export default function RunsPage({ onHeaderActions, reviewOnly = false }: { onHe
   }, [navigate]);
   useEffect(() => {
     onHeaderActions(<>{id && <Button size="sm" variant="outline" onClick={() => navigate()}>Back to history</Button>}
-      <Button size="sm" variant="outline" disabled={busy} onClick={() => void start('failure-probe')}>Failure probe</Button>
+      <Button size="sm" variant="outline" disabled={busy || !!note.trim()} onClick={() => void start('failure-probe')}>Failure probe</Button>
       <Button size="sm" variant="outline" disabled={busy} onClick={() => void start('quality')}>Quality audit</Button>
       <Button size="sm" disabled={busy} onClick={() => void start('quick')}>Quick audit</Button></>);
     return () => onHeaderActions(null);
-  }, [id, busy, onHeaderActions, navigate, start]);
+  }, [id, busy, note, onHeaderActions, navigate, start]);
   if (id) return <RecordDetailV1 title={`Run ${id}`} loading={loading} error={error} onRetry={() => setRevision(value => value + 1)}
     status={detail && <RunStatus status={detail.status} />} description="Green means every executed step passed and the final result was stored. Failure probe is intentionally red."
     actions={detail?.status === 'pending' && <Button size="sm" variant="outline" disabled={busy} onClick={async () => { setBusy(true); try { await cancel(id); setRevision(value => value + 1); } catch (failure) { setError((failure as Error).message); } finally { setBusy(false); } }}>Cancel pending job</Button>}

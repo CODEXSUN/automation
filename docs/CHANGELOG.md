@@ -2,13 +2,27 @@
 
 ## Version State
 
-Current version: 1.0.5
+Current version: 1.0.6
 
-Release tag: v-1.0.5
+Release tag: v-1.0.6
 
-Changelog label: v 1.0.5
+Changelog label: v 1.0.6
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.6
+
+### [v 1.0.6] 2026-11-18 - Harden worker recovery and review navigation
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.6.
+- Reconcile expired running leases even when no new jobs arrive; interrupted work remains visible without automatic repeat execution.
+- Protect unsaved human-review notes during app navigation and disable new-run actions until a note is saved or cleared.
 
 ## v-1.0.5
 

@@ -10,7 +10,7 @@ export function registerAutomationRoutes(app: ReturnType<typeof createHttpServer
 }
 
 export const specification: ApiDocumentationSpecification = {
-  openapi: '3.1.0', info: { title: 'Automation audit desk', version: '1.0.5' },
+  openapi: '3.1.0', info: { title: 'Automation audit desk', version: '1.0.6' },
   paths: {
     '/api/v1/overview': { get: { summary: 'Local setup overview; configuration presence is not readiness', responses: { '200': { description: 'Setup overview' }, '403': { description: 'Local origin required' } } } },
     '/api/v1/automations': { get: { summary: 'Read-only catalog of operator CLI tools', responses: { '200': { description: 'Tool catalog' }, '403': { description: 'Local origin required' } } } },

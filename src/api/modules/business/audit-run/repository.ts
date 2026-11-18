@@ -60,7 +60,7 @@ export function repository(db: Db) {
       return await db.updateTable('audit_runs').set({ status: 'cancelled', finished_at: new Date(), updated_at: new Date(), updated_by: actor })
         .where('tenant_id', '=', localScope.tenant).where('public_id', '=', id).where('status', '=', 'pending').returning('public_id').executeTakeFirst();
     },
-    async pending() { return (await db.selectFrom('audit_runs').select('public_id').where('tenant_id','=',localScope.tenant).where('status','=','pending').orderBy('id').limit(100).execute()).map(r=>r.public_id); },
+    async pending() { await db.updateTable('audit_runs').set({status:'interrupted',outcome_reason:'worker-interrupted',finished_at:new Date(),updated_at:new Date(),updated_by:'system:automation-worker',lease_until:null}).where('tenant_id','=',localScope.tenant).where('status','=','running').where('lease_until','<',new Date()).execute(); return (await db.selectFrom('audit_runs').select('public_id').where('tenant_id','=',localScope.tenant).where('status','=','pending').orderBy('id').limit(100).execute()).map(r=>r.public_id); },
     async heartbeat(redisReady:boolean) { await db.insertInto('audit_worker').values({singleton:1,seen_at:new Date(),redis_ready:redisReady}).onConflict(c=>c.column('singleton').doUpdateSet({seen_at:new Date(),redis_ready:redisReady})).execute(); },
     async review(id:string,reviewer:string,decision:string,note:string) { const row=await raw(id);if(!row||['pending','running'].includes(row.status))throw Object.assign(Error('Review requires a completed run.'),{statusCode:409});await db.insertInto('audit_reviews').values({run_id:row.id,reviewer,decision,note}).execute();return this.detail(id); },
     async claim(reference?:string) {

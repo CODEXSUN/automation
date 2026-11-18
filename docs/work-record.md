@@ -106,3 +106,7 @@ Independent deterministic automation with optional Zetro AI integration
 
 - Source typecheck/build and app/tool checks passed for the coordinated release, with restricted Docker database targets tested where needed. Dependency commits are published immutable versions. The user authorized including current app changes after audit.
 - Tagged workflow success, database copy/migration planning, runtime checks and Platform admission remain separate CodeShip stages; source publication alone does not certify deployment.
+
+## 2026-11-18 — recovery/review hardening
+
+- Candidate 1.0.5 passed its tagged image workflow. Before installation, hardened idle-queue interrupted-run recovery and guarded unsaved review navigation; these source changes use fresh release 1.0.6 rather than reusing a tag. Both releases include the same additive worker/review migration; no deployed data has been migrated by source publication.
