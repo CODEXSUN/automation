@@ -1,0 +1,47 @@
+{
+  "name": "@workspace/automation",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26.13.1"
+  },
+  "scripts": {
+    "dev": "node --watch src/api/server.ts",
+    "dev:api": "node --watch src/api/server.ts",
+    "dev:web": "vite",
+    "start": "node src/api/server.ts",
+    "preflight": "node scripts/preflight.ts",
+    "build": "vite build",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --test tools/*.test.mjs tests/*.test.ts",
+    "test:tools": "node --test tools/*.test.mjs",
+    "verify": "npm run typecheck && npm run build && npm test && npm run check:versions",
+    "github:now": "node tools/github-helper.mjs",
+    "github:audit": "node tools/github-helper.mjs --dry-run",
+    "github:ssh-key": "node tools/github-ssh-key.mjs",
+    "version:show": "node tools/check-versions.mjs",
+    "version:update": "node tools/version-bump.mjs",
+    "version:bump": "node tools/version-bump.mjs",
+    "version:preview": "node tools/version-bump.mjs --dry-run",
+    "check:versions": "node tools/check-versions.mjs",
+    "setup:audit": "node scripts/setup-audit.mjs",
+    "prebuild": "npm run setup:audit"
+  },
+  "dependencies": {
+    "@workspace/framework": "file:../../foundation/framework",
+    "@workspace/ui": "file:../../packages/ui",
+    "react": "19.3.1",
+    "lucide-react": "1.73.0",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.5",
+    "tailwindcss": "4.3.5",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}
