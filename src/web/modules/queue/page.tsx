@@ -16,11 +16,12 @@ export default function QueuePage() {
     }
     void refresh(); return () => { controller.abort(); clearTimeout(timer); };
   }, [revision]);
-  return <Card><CardHeader><CardTitle>Local PostgreSQL queue</CardTitle></CardHeader><CardContent className="space-y-4">
-    <p>One active read-only audit at a time. Jobs are durable; a separate worker processes them without Redis or AI.</p>
+  return <Card><CardHeader><CardTitle>Delivery and worker health</CardTitle></CardHeader><CardContent className="space-y-4">
+    <p>PostgreSQL preserves accepted work and results. Redis/BullMQ delivers references to the managed worker, one audit at a time.</p>
     {error ? <div role="alert">{error}<Button variant="outline" onClick={() => setRevision(value => value + 1)}>Retry</Button></div> : !data ? <p role="status">Loading queue…</p> : <>
       <dl className="grid gap-4 sm:grid-cols-3">{(['pending', 'running', 'succeeded', 'failed', 'interrupted', 'cancelled'] as const).map(key => <div key={key}><dt>{key}</dt><dd>{data[key]}</dd></div>)}</dl>
-      <p className="text-sm">Latest accepted run: {data.latest ? `${data.latest.publicId} · ${data.latest.status}` : 'None'}. These are stored job counts, not a live worker heartbeat.</p>
+      <dl className="grid gap-4 sm:grid-cols-3"><div><dt>Worker</dt><dd>{data.worker?.online?'Online':'Offline or stale'}</dd></div><div><dt>Redis delivery</dt><dd>{data.worker?.redisReady?'Connected':'Unavailable'}</dd></div><div><dt>Last heartbeat</dt><dd>{data.worker?.lastSeen?new Date(data.worker.lastSeen).toLocaleString():'None'}</dd></div></dl>
+      <p className="text-sm">Latest accepted run: {data.latest ? `${data.latest.publicId} · ${data.latest.status}` : 'None'}. Redis outages retain pending work; review interrupted results before starting a new run.</p>
     </>}
   </CardContent></Card>;
 }

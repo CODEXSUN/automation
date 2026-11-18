@@ -1,3 +1,4 @@
+import {workerAuthorizer} from './authorization.ts';
 import { executeNodeScript } from '@workspace/execution';
 import path from 'node:path';
 import { realpathSync } from 'node:fs';
@@ -16,11 +17,11 @@ export function parseVariant(value: unknown): Variant {
   if (typeof value !== 'string' || !Object.hasOwn(variants, value)) throw Object.assign(new Error('Choose a registered audit variant.'), { statusCode: 400 });
   return value as Variant;
 }
-export async function workOnce(db: Kysely<AuditDatabase>) {
-  const repo = repository(db), run = await repo.claim();
+export async function workOnce(db: Kysely<AuditDatabase>, reference?: string, authorize = workerAuthorizer(process.env)) {
+  const repo = repository(db), run = await repo.claim(reference);
   if (!run) return null;
   // Reauthorization uses fixed local ownership; client payloads cannot grant scope or select commands.
-  if (run.tenant_id !== localScope.tenant || run.created_by !== localScope.actor || !run.active) throw new Error('Execution scope denied.');
+  if (run.tenant_id !== localScope.tenant || !run.active) { await repo.finish(run.id,false,0,'scope-denied'); return repo.detail(run.public_id); }
   const steps = variants[parseVariant(run.variant)].steps;
   const scripts: Record<StepKey, { path: string; args: string[] }> = {
     setup: { path: 'scripts/setup-audit.mjs', args: [] },
@@ -31,6 +32,8 @@ export async function workOnce(db: Kysely<AuditDatabase>) {
   let success = true;
   const start = performance.now();
   for (const [position, key] of steps.entries()) {
+    let allowed=false;try{allowed=await authorize(run.created_by,run.authorization);}catch{}
+    if(!allowed){await repo.finish(run.id,false,Math.round(performance.now()-start),'authorization-denied');return repo.detail(run.public_id);}
     const script = scripts[key];
     const scriptPath = realpathSync(path.join(appRoot, script.path));
     const relative = path.relative(realpathSync(appRoot), scriptPath);

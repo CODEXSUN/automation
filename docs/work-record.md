@@ -1,5 +1,23 @@
 # Work Record
 
+## 2026-11-18 — managed worker and human review release preparation
+
+- Implemented actor-preserving queued authorization: verified Platform tenant/user/session references are stored privately at enqueue; worker rechecks the current Platform service/session/app/permission decision before every read-only step. Failed authority records an explicit terminal reason rather than leaving a claimed job running.
+- Added Execution 0.2.0's Redis/BullMQ delivery adapter, durable PostgreSQL pending reconciliation, managed API/worker supervisor and worker/Redis heartbeat readiness. CodeShip prepares a separate persistent namespaced Redis account and private network attachment with encrypted recovery settings before effects. No administrator Redis credential is passed to Automation.
+- Added additive migration 20261118000200_worker_reviews, creator/outcome/review evidence, Review inbox, append-only reviewer decisions and live Queue health. Human review does not modify job status or confer execution authority. Existing runs, steps and published migrations are preserved.
+- Fixed the runtime Git fixture prerequisite in the immutable Dockerfile. Tagged Automation CI now runs the actual PostgreSQL and BullMQ suites against disposable services.
+- Preparation checks passed: audited build/typecheck, eleven app/tool/authorization tests and both real PostgreSQL/BullMQ integration suites. Platform's focused isolated patch passed thirty tests plus all five existing PostgreSQL regression suites; unrelated pending Platform edits are untouched. Tagged Platform v-1.0.6 workflow succeeded. Deployment/browser results are recorded only after installation.
+- Release candidate Automation 1.0.5 uses the reviewed Execution 0.2.0 archive; archive integrity matches the lockfile. Existing inherited dependency-audit findings are not represented as resolved by functional tests.
+
+## 2026-11-18 — deployed Docker verification
+
+- Verified the already deployed Automation 1.0.4 image/revision through CodeShip's managed verifier; container healthy on loopback 4459, PostgreSQL role/data scope queryable and non-superuser/non-BYPASSRLS, schema current. Protected APIs rejected anonymous requests. No rollout or deployed migration performed.
+- Native ten-test suite passed; deployed suite passed nine of ten, with the GitHub-helper fixture failing because the runtime image lacks Git. Deployed typecheck/setup/version checks passed. Original native test connection timed out; the dedicated PostgreSQL integration suite then passed from the deployed image against the separate test database over a temporary private test bridge.
+- Added three deliberate retained deployed-history diagnostics: quick v7raeu3m passed (364 ms), quality 92j59tev passed (1900 ms), failure-probe f2i4093a correctly failed with exit-nonzero. Final deployed counts: six succeeded, three failed, no pending/running jobs. These were manual jobs:work checks, not evidence of an automatic worker.
+- Redis authenticated PING, AOF/noeviction inspection and isolated enqueue/dequeue smoke passed using saved CodeShip secrets without printing them. Automation has no Redis URL or BullMQ adapter, and its container/network has no Redis integration. No persistent worker process is deployed.
+- Reproduced a Platform-actor worker rejection in the dedicated test database: API-style creator differs from the worker's fixed local actor, leaving running with zero executed steps. Removed only that synthetic diagnostic record afterward. This prevents an all-green Platform-to-worker claim and needs a governed implementation/release task.
+- Detailed evidence, test isolation and remaining findings are in docs/docker-verification-2026-11-18.md. No shared services/images/credentials or existing records were altered; only intended diagnostic history was added. Documentation remains local and unpublished.
+
 ## 2026-11-18 — version 1.0.2 source publication preparation
 
 - User authorized version 1.0.2, log update, audit, commit and push of Automation to the configured CODEXSUN/automation main branch. Remote synchronization found no incoming or outgoing commits before preparation.

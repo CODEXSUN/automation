@@ -37,15 +37,15 @@ export function Application() {
   }
   const currentLabel = pageLabel(page, appDetails.moduleRoutes);
   return <MainLayout className="w-full min-w-0" onLogout={()=>void identity?.logout()} applicationName={appDetails.name} companyBrand={{...appBrand,name:identity?.session.tenant?.name??appBrand.name}}
-    appItems={[]} navigation={[{ label: 'Workspace', items: [{ label: 'Automations', onSelect: () => navigate('Automations') }, { label: 'Run history', onSelect: () => navigate('Run history') }, { label: 'Queue', onSelect: () => navigate('Queue') }] }]} user={{name:identity?.session.user.displayName??'Workspace user',email:identity?.session.user.email??'',fallback:'WS'}}
+    appItems={[]} navigation={[{ label: 'Workspace', items: [{ label: 'Automations', onSelect: () => navigate('Automations') }, { label: 'Run history', onSelect: () => navigate('Run history') }, {label:'Review inbox',onSelect:()=>navigate('Review inbox')}, { label: 'Queue', onSelect: () => navigate('Queue') }] }]} user={{name:identity?.session.user.displayName??'Workspace user',email:identity?.session.user.email??'',fallback:'WS'}}
     selectedPage={currentLabel} onSettingsSelect={() => navigate('Settings')} onOverviewSelect={() => navigate('Overview')}
-    headerActions={page === 'Run history' ? header : null}
+    headerActions={['Run history','Review inbox'].includes(page) ? header : null}
     headerBreadcrumbs={[{ label: currentLabel }, ...(page === 'Run history' && /^\/runs\/[a-z0-9]{8}$/.test(currentPath) ? [{ label: currentPath.split('/')[2] }] : page.startsWith('Module:') && currentPath.endsWith('/new') ? [{ label: 'New' }] : page.startsWith('Module:') && currentPath.endsWith('/edit') ? [{ label: 'Edit' }] : [])]} headerName={null}
     statusLabel={page === 'Page not found' ? 'Page not found' : 'Local audit queue'} workspaceTitle="Overview" versionLabel={`v ${appVersion}`}>
     <main className="workspace-list-content space-y-5">
       <ContentBoundary resetKey={page}>
         <Suspense fallback={<AsyncState loading>{null}</AsyncState>}>
-          {page === 'Settings' ? <SettingsPage /> : page === 'Automations' ? <AutomationsPage /> : page === 'Run history' ? <RunsPage onHeaderActions={updateHeader} /> : page === 'Queue' ? <QueuePage /> : page === 'Page not found' ?
+          {page === 'Settings' ? <SettingsPage /> : page === 'Automations' ? <AutomationsPage /> : ['Run history','Review inbox'].includes(page) ? <RunsPage key={page} reviewOnly={page==='Review inbox'} onHeaderActions={updateHeader} /> : page === 'Queue' ? <QueuePage /> : page === 'Page not found' ?
             <Card><CardHeader><CardTitle>Page not found</CardTitle></CardHeader><CardContent><Button onClick={() => navigate('Overview')}>Go to Overview</Button></CardContent></Card> :
             <OverviewPage />}
         </Suspense>

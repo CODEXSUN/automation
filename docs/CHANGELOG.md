@@ -2,13 +2,29 @@
 
 ## Version State
 
-Current version: 1.0.4
+Current version: 1.0.5
 
-Release tag: v-1.0.4
+Release tag: v-1.0.5
 
-Changelog label: v 1.0.4
+Changelog label: v 1.0.5
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.5
+
+### [v 1.0.5] 2026-11-18 - Managed BullMQ worker and human audit review
+
+#### Database Changes
+
+- Database update: Yes (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.5.
+- Add a managed BullMQ worker with PostgreSQL reconciliation, current Platform authorization at each step, durable outcomes and scoped Redis delivery.
+- Add append-only human review decisions, Review inbox and live worker/delivery status pages.
+- Add migration 20261118000200_worker_reviews without changing existing history or migrations.
+- Include Execution 0.2.0 and Git in the immutable runtime image; CI runs PostgreSQL/BullMQ integration tests.
 
 ## v-1.0.4
 

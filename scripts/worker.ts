@@ -1,21 +1,21 @@
 import { connectDatabase } from '../src/api/database/connection.ts';
 import { workOnce } from '../src/api/modules/business/audit-run/service.ts';
+import { repository } from '../src/api/modules/business/audit-run/repository.ts';
+import { startDelivery } from '@workspace/execution';
 import { setTimeout } from 'node:timers/promises';
 
 const db = connectDatabase();
+const redis = process.env.AUTOMATION_REDIS_URL;
+if (!redis) { await db.destroy(); throw new Error('The managed worker requires Redis delivery configuration.'); }
+const repo = repository(db);
+const delivery = await startDelivery({ url: redis, namespace: process.env.AUTOMATION_QUEUE_NAMESPACE ?? 'automation-local-audits',
+  pending: () => repo.pending(), process: reference => workOnce(db, reference), heartbeat: ready => repo.heartbeat(ready) });
 let stopping = false;
 process.once('SIGINT', () => { stopping = true; });
 process.once('SIGTERM', () => { stopping = true; });
-console.log('Local audit worker started; one active job, 2-second idle polling.');
+console.log('BullMQ audit worker started; durable PostgreSQL reconciliation and one active job.');
 try {
   while (!stopping) {
-    try {
-      const result = await workOnce(db);
-      if (result) console.log(JSON.stringify({ publicId: result.publicId, status: result.status, durationMs: result.durationMs }));
-      else await setTimeout(2000);
-    } catch {
-      console.error('Worker could not persist or claim work; inspect database and run history.');
-      await setTimeout(2000);
-    }
+    await setTimeout(500);
   }
-} finally { await db.destroy(); }
+} finally { await delivery.close(); await repo.heartbeat(false); await db.destroy(); }

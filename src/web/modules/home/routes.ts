@@ -1,4 +1,4 @@
-export type Page = 'Run history' | 'Queue' | 'Overview' | 'Settings' | 'Automations' | 'Cities' | 'Page not found' | `Module:${string}`;
+export type Page = 'Review inbox' | 'Run history' | 'Queue' | 'Overview' | 'Settings' | 'Automations' | 'Cities' | 'Page not found' | `Module:${string}`;
 export type ModuleRoute = { key: string; label: string; path: string };
 export function pageLabel(page: Page, modules: readonly ModuleRoute[] = []): string {
   return page.startsWith('Module:') ? modules.find(module => 'Module:' + module.key === page)?.label ?? 'Page not found' : page;
@@ -8,6 +8,7 @@ export function pageForPath(path: string, cityEnabled = false, modules: readonly
   if (module) return `Module:${module.key}`;
   if (cityEnabled && path === '/cities') return 'Cities';
   if (path === '/runs' || /^\/runs\/[a-z0-9]{8}$/.test(path)) return 'Run history';
+  if (path === '/reviews') return 'Review inbox';
   if (path === '/queue') return 'Queue';
   if (path === '/') return 'Overview';
   if (path === '/settings' || path === '/settings/appearance') return 'Settings';
@@ -17,6 +18,7 @@ export function pageForPath(path: string, cityEnabled = false, modules: readonly
 export function pathForPage(page: Page, modules: readonly ModuleRoute[] = []): string {
   if (page.startsWith('Module:')) return modules.find(module => 'Module:' + module.key === page)?.path ?? '/';
   if (page === 'Run history') return '/runs';
+  if (page === 'Review inbox') return '/reviews';
   if (page === 'Queue') return '/queue';
   if (page === 'Cities') return '/cities';
   if (page === 'Settings') return '/settings/appearance';

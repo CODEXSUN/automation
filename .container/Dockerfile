@@ -11,6 +11,7 @@ COPY mcp-governance ./mcp-governance
 COPY apps/automation ./apps/automation
 RUN cd apps/automation && npm ci --install-links=false --ignore-scripts --no-audit && npm run typecheck && npm run build
 FROM ${NODE_IMAGE} AS runtime
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=build --chown=node:node /opt/codebiz /opt/codebiz
 USER node
 WORKDIR /opt/codebiz/apps/automation

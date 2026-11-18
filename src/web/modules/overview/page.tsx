@@ -23,6 +23,6 @@ export default function OverviewPage() {
       <div><dt>PostgreSQL configuration</dt><dd>{data.setup.database}</dd></div>
       <div><dt>Redis configuration</dt><dd>{data.setup.redis}</dd></div>
     </dl>}
-    <p className="text-sm text-muted-foreground">Run history records passed, failed and interrupted audits with per-step timings. A separate worker processes pending jobs. Redis, AI and schedules are not required or enabled. Configuration presence does not verify service readiness.</p>
+    <p className="text-sm text-muted-foreground">Run history records passed, failed and interrupted audits with per-step timings. A separate worker processes pending jobs. Redis/BullMQ delivers jobs to the managed worker. Check Queue for heartbeat and connection health, Run history for execution evidence, and Review inbox for human decisions. AI and schedules remain separate.</p>
   </CardContent></Card>;
 }

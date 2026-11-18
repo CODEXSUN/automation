@@ -1,6 +1,6 @@
 {
   "name": "@workspace/automation",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "type": "module",
   "engines": {
@@ -37,15 +37,15 @@
     "test:database": "node scripts/test-database.mjs"
   },
   "dependencies": {
-    "@workspace/execution": "file:vendor/workspace-execution-0.1.0.tgz",
+    "@workspace/execution": "file:vendor/workspace-execution-0.2.0.tgz",
     "@workspace/framework": "file:../../foundation/framework",
+    "@workspace/sdk": "file:../../packages/sdk",
     "@workspace/ui": "file:../../packages/ui",
     "kysely": "0.29.9",
     "lucide-react": "1.73.0",
     "pg": "8.23.1",
     "react": "19.3.1",
-    "react-dom": "19.3.1",
-    "@workspace/sdk": "file:../../packages/sdk"
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.5",
