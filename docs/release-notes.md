@@ -10,4 +10,4 @@ Adds automatic Redis/BullMQ delivery, per-step Platform authorization, worker he
 
 ## 1.0.7 review action correction
 
-All three audit actions now wait until a review note is saved or cleared. This is an image-only correction with no new migrations. Worker and review verification for 1.0.6 is recorded in `docker-worker-verification-2026-11-18.md`; CodeShip must separately verify the fresh 1.0.7 image before declaring it installed.
+All three audit actions now wait until a review note is saved or cleared. This is an image-only correction with no new migrations. CodeShip installed 1.0.7 after successful tagged CI; readiness, Platform admission and browser action guards passed. Worker/review Docker evidence and the blocked final installed-image repeat are recorded in `docker-worker-verification-2026-11-18.md`.

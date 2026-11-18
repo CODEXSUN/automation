@@ -40,4 +40,8 @@ Four inherited high dependency audit findings remain in the existing Vite depend
 
 ## Final review correction
 
-The 1.0.6 browser audit found that only Failure probe was disabled with an unsaved review note. Quality and Quick now receive the same protection in fresh patch 1.0.7. This changes no database migration or worker contract. Its tagged CI and managed image-only update must pass before claiming 1.0.7 installed.
+The 1.0.6 browser audit found that only Failure probe was disabled with an unsaved review note. Quality and Quick receive the same protection in fresh patch 1.0.7. This changes no database migration or worker contract.
+
+Version 1.0.7 at commit `46605e55578d4d80bf3d93e9f780c10836e83a9e` passed tagged workflow `44361411196`. CodeShip installed approved image `ghcr.io/codexsun/automation@sha256:a037ab8c522e18256a85adc58ffe7b1f0ed07b11c86c3b0bda424c5dc73523c6`; release succeeded at 17:47:15 UTC. No pending migration: backup and migration were skipped. Readiness and Platform admission passed. The signed-in browser showed 1.0.7, retained the saved quality review, and confirmed all three audit buttons disable for an unsaved note and re-enable after clearing it. The temporary test note was cleared without creating a review or job. Final screenshot capture became unavailable after this accessibility verification; the retained screenshot documents the earlier 1.0.6 quality/review check.
+
+The final installed-image rerun is waiting for another app's exclusive CodeShip lock. It was not bypassed or removed. The table above reports the completed 1.0.6 installed-image checks; 1.0.7 CI independently reran its unchanged worker/database suites. Do not describe the waiting final Docker rerun as executed.
