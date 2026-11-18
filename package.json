@@ -1,6 +1,6 @@
 {
   "name": "@workspace/automation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "engines": {
@@ -44,7 +44,8 @@
     "lucide-react": "1.73.0",
     "pg": "8.23.1",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "react-dom": "19.3.1",
+    "@workspace/sdk": "file:../../packages/sdk"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.5",

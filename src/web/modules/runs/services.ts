@@ -1,6 +1,7 @@
+import {appFetch} from '../../platform-client.ts';
 import type { QueueView, RunView, RunDetail, Variant } from '../../../../contracts/run';
 async function request<T>(url: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(url, { ...options, credentials: 'same-origin' });
+  const response = await appFetch(url, { ...options, credentials: 'same-origin' });
   if (!response.ok) throw new Error(response.status === 503 ? 'Job storage is unavailable.' : response.status === 409 ? 'This job can no longer be changed. Refresh history.' : 'Unable to load or change local jobs.');
   return response.json() as Promise<T>;
 }

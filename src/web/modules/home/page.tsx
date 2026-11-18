@@ -1,3 +1,4 @@
+import {useWorkspaceAuth} from '../../platform';
 import { lazy, Suspense, useEffect, useState, useCallback, type ReactNode } from 'react';
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@workspace/ui';
 import { AsyncState, ContentBoundary } from '@workspace/ui/blocks/async-state';
@@ -15,6 +16,7 @@ const OverviewPage = lazy(() => import('../overview/page'));
 const SettingsPage = lazy(() => import('../settings/page'));
 
 export function Application() {
+ const identity=useWorkspaceAuth();
   const [header, setHeader] = useState<ReactNode>(null);
   const updateHeader = useCallback((actions: ReactNode) => setHeader(actions), []);
   const [page, setPage] = useState(() => pageForPath(window.location.pathname, appDetails.cityEnabled, appDetails.moduleRoutes));
@@ -34,8 +36,8 @@ export function Application() {
     window.dispatchEvent(new PopStateEvent('popstate'));
   }
   const currentLabel = pageLabel(page, appDetails.moduleRoutes);
-  return <MainLayout className="w-full min-w-0" applicationName={appDetails.name} companyBrand={appBrand}
-    appItems={[]} navigation={[{ label: 'Workspace', items: [{ label: 'Automations', onSelect: () => navigate('Automations') }, { label: 'Run history', onSelect: () => navigate('Run history') }, { label: 'Queue', onSelect: () => navigate('Queue') }] }]} user={{ name: 'Local setup', email: '', fallback: 'LS' }}
+  return <MainLayout className="w-full min-w-0" onLogout={()=>void identity?.logout()} applicationName={appDetails.name} companyBrand={{...appBrand,name:identity?.session.tenant?.name??appBrand.name}}
+    appItems={[]} navigation={[{ label: 'Workspace', items: [{ label: 'Automations', onSelect: () => navigate('Automations') }, { label: 'Run history', onSelect: () => navigate('Run history') }, { label: 'Queue', onSelect: () => navigate('Queue') }] }]} user={{name:identity?.session.user.displayName??'Workspace user',email:identity?.session.user.email??'',fallback:'WS'}}
     selectedPage={currentLabel} onSettingsSelect={() => navigate('Settings')} onOverviewSelect={() => navigate('Overview')}
     headerActions={page === 'Run history' ? header : null}
     headerBreadcrumbs={[{ label: currentLabel }, ...(page === 'Run history' && /^\/runs\/[a-z0-9]{8}$/.test(currentPath) ? [{ label: currentPath.split('/')[2] }] : page.startsWith('Module:') && currentPath.endsWith('/new') ? [{ label: 'New' }] : page.startsWith('Module:') && currentPath.endsWith('/edit') ? [{ label: 'Edit' }] : [])]} headerName={null}

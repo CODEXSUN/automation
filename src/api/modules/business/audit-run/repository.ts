@@ -17,7 +17,7 @@ export function repository(db: Db) {
   const raw = (id: string) => db.selectFrom('audit_runs').selectAll().where('public_id', '=', id).where('tenant_id', '=', localScope.tenant).executeTakeFirst();
   return {
     raw,
-    async enqueue(variant: Variant, requestKey: string) {
+    async enqueue(variant: Variant, requestKey: string, actor: string = localScope.actor) {
       const previous = await db.selectFrom('audit_runs').selectAll().where('tenant_id', '=', localScope.tenant).where('request_key', '=', requestKey).executeTakeFirst();
       if (previous) {
         if (previous.variant !== variant) throw Object.assign(new Error('Request key already belongs to another variant.'), { statusCode: 409 });
@@ -25,7 +25,7 @@ export function repository(db: Db) {
       }
       for (let attempt = 0; attempt < 5; attempt++) {
         try {
-          const row = await db.insertInto('audit_runs').values({ public_id: publicId(), tenant_id: localScope.tenant, created_by: localScope.actor, updated_by: localScope.actor,
+          const row = await db.insertInto('audit_runs').values({ public_id: publicId(), tenant_id: localScope.tenant, created_by: actor, updated_by: actor,
             variant, status: 'pending', request_key: requestKey, started_at: null, finished_at: null, lease_until: null, duration_ms: null, queue_wait_ms: null }).returningAll().executeTakeFirstOrThrow();
           return view(row);
         } catch (error) {
@@ -53,8 +53,8 @@ export function repository(db: Db) {
       for (const count of counts) result[count.status] = Number(count.count);
       return result;
     },
-    async cancel(id: string) {
-      return await db.updateTable('audit_runs').set({ status: 'cancelled', finished_at: new Date(), updated_at: new Date(), updated_by: localScope.actor })
+    async cancel(id: string, actor: string = localScope.actor) {
+      return await db.updateTable('audit_runs').set({ status: 'cancelled', finished_at: new Date(), updated_at: new Date(), updated_by: actor })
         .where('tenant_id', '=', localScope.tenant).where('public_id', '=', id).where('status', '=', 'pending').returning('public_id').executeTakeFirst();
     },
     async claim() {

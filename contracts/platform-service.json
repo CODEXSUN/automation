@@ -1,0 +1,16 @@
+{
+  "appKey": "automation",
+  "name": "Automation",
+  "permissionKeys": [
+    "automation/workspace:read",
+    "automation/operator:read",
+    "automation/operator:write"
+  ],
+  "dependencies": [],
+  "environment": "development",
+  "internalOrigin": "http://127.0.0.1:4395",
+  "credentialReference": "env:PLATFORM_SERVICE_AUTOMATION_TOKEN",
+  "timeoutMs": 15000,
+  "gatewayEnabled": false,
+  "tenantCorporateId": "codexsun"
+}

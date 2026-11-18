@@ -67,3 +67,19 @@ Independent deterministic automation with optional Zetro AI integration
 - npm audit reports four high findings in one inherited picomatch → fdir/tinyglobby/Vite dependency chain. Registry latest picomatch is 4.0.7, within the reported advisory range. No force downgrade or unrelated shared upgrade performed. This is an unresolved dependency limitation, not a clean security audit.
 - Workspace port audit includes both new pairs but reports an existing Ecommerce missing dev:api/dev:web command issue. That unrelated app was preserved.
 - Next: dedicated app connection provisioning/verification, trusted actor scope and one durable deterministic workflow slice. Zetro remains an optional separate provider app. Relocated standalone tarball installation and live queue execution are not verified.
+
+## 2026-11-18 — Coordinated tagged deployment contract
+
+- Added the common .container build/Compose/delegation contract and pinned tagged release workflow. Shared SDK 0.1.2 is pinned to published commit 5f9f7b73ec8c01df698f2914676e83e9b1668d91; governance is available in the isolated CI source for setup audits. No local environment, database or credentials enter the build context.
+- Source verification and runtime/database adapter audit are recorded separately by CodeShip. Contract generation alone does not install, migrate or certify a deployment.
+
+## 2026-11-18 — Suite Platform authentication gate
+
+- Connected/reviewed automation through the shared Platform browser/session and one-use service-grant pattern. Preserved business records, existing module work and concurrent release/UI changes. See Platform's auth-gate-rollout.md and this app's platform-auth.md for the exact data scope and limits.
+- Owning typecheck/build/tests/version checks passed. Native default-account login, tenant session, required password enforcement and logout were verified for newly connected apps; Texlinks' existing real verification was retained and its disposable two-tenant suite rerun. No real password change or database reset.
+- Core/Billing/Ecommerce/Automation preserve explicit Codexsun database bindings; Zetro uses its dedicated PostgreSQL/RLS boundary; CRM/HRMS/Texlinks do not claim implemented business data. Local app settings stay ignored. Production/deployment and fuller account lifecycle remain separate work.
+
+## 2026-11-18 — Audited source release handoff
+
+- Source typecheck/build and app/tool checks passed for the coordinated release, with restricted Docker database targets tested where needed. Dependency commits are published immutable versions. The user authorized including current app changes after audit.
+- Tagged workflow success, database copy/migration planning, runtime checks and Platform admission remain separate CodeShip stages; source publication alone does not certify deployment.
