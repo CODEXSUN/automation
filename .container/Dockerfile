@@ -7,6 +7,7 @@ RUN cd foundation/framework && npm ci --install-links=false --ignore-scripts --n
 COPY packages/ui ./packages/ui
 RUN cd packages/ui && npm ci --install-links=false --ignore-scripts --no-audit && npm run build
 COPY packages/sdk ./packages/sdk
+COPY mcp-governance ./mcp-governance
 COPY apps/automation ./apps/automation
 RUN cd apps/automation && npm ci --install-links=false --ignore-scripts --no-audit && npm run typecheck && npm run build
 FROM ${NODE_IMAGE} AS runtime

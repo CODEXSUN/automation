@@ -2,13 +2,26 @@
 
 ## Version State
 
-Current version: 1.0.3
+Current version: 1.0.4
 
-Release tag: v-1.0.3
+Release tag: v-1.0.4
 
-Changelog label: v 1.0.3
+Changelog label: v 1.0.4
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.4
+
+### [v 1.0.4] 2026-11-18 - Audited application work and pinned container release contract
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.4.
+- Include the current app-owned Platform authentication and business changes described in the work record. Add the common .container build/delegation contract and tagged image workflow, pinned to published UI 0.1.8, SDK 0.1.3 and governance source. Source typecheck/build and app/tool checks passed; CodeShip separately verifies image identity, database recovery and runtime admission. Existing data and public IDs are retained; no reset or seed is an update step.
 
 ## v-1.0.3
 
