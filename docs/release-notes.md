@@ -7,3 +7,7 @@ An image release is not an installation certificate. Installation requires the r
 ## Managed worker and review
 
 Adds automatic Redis/BullMQ delivery, per-step Platform authorization, worker heartbeat, append-only human review and an operator Review inbox. A new additive audit migration requires CodeShip writer quiescence and a checked PostgreSQL backup. Requires the Platform worker-context release and the updated CodeShip Automation adapter. Existing runs and steps are retained.
+
+## 1.0.7 review action correction
+
+All three audit actions now wait until a review note is saved or cleared. This is an image-only correction with no new migrations. Worker and review verification for 1.0.6 is recorded in `docker-worker-verification-2026-11-18.md`; CodeShip must separately verify the fresh 1.0.7 image before declaring it installed.

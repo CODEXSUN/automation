@@ -57,8 +57,8 @@ export default function RunsPage({ onHeaderActions, reviewOnly = false, onReview
   useEffect(() => {
     onHeaderActions(<>{id && <Button size="sm" variant="outline" onClick={() => navigate()}>Back to history</Button>}
       <Button size="sm" variant="outline" disabled={busy || !!note.trim()} onClick={() => void start('failure-probe')}>Failure probe</Button>
-      <Button size="sm" variant="outline" disabled={busy} onClick={() => void start('quality')}>Quality audit</Button>
-      <Button size="sm" disabled={busy} onClick={() => void start('quick')}>Quick audit</Button></>);
+      <Button size="sm" variant="outline" disabled={busy || !!note.trim()} onClick={() => void start('quality')}>Quality audit</Button>
+      <Button size="sm" disabled={busy || !!note.trim()} onClick={() => void start('quick')}>Quick audit</Button></>);
     return () => onHeaderActions(null);
   }, [id, busy, note, onHeaderActions, navigate, start]);
   if (id) return <RecordDetailV1 title={`Run ${id}`} loading={loading} error={error} onRetry={() => setRevision(value => value + 1)}

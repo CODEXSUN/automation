@@ -60,14 +60,14 @@ Independent deterministic automation with optional Zetro AI integration
 - [x] Deliver the independent setup/tool desk without an AI dependency.
 - [x] Install owner-local dependencies and build against existing shared framework/UI artifacts.
 - [x] Verify process health, real catalog APIs, documentation, overview, catalog search and direct reload.
-- [ ] Establish dedicated PostgreSQL runtime credentials and authenticated Redis readiness through Codeship.
-- [ ] Implement trusted identity, persistent workflow/run/outbox modules and Execution-owned queue adapters.
+- [x] Establish dedicated PostgreSQL runtime credentials and authenticated Redis readiness through CodeShip.
+- [x] Implement trusted Platform identity, durable audit runs/reviews and Execution-owned BullMQ delivery.
 
 ## Decisions and open questions
 
 - Uses the shared default design system and shared server framework.
 - Module routing must follow the central Routes and navigation guide: internal `/api/v1` calls, clean browser paths, `/api/docs`, and URL/history state restoration. These are instructions until implemented and verified.
-- Database, authentication, deployment, and business features are not configured.
+- The audit workflow now uses PostgreSQL, Platform authorization and managed Redis/BullMQ. Arbitrary workflow authoring and AI dispatch are outside this delivered phase.
 - Generated files are not proof that installation or runtime checks passed.
 
 ## Daily work
@@ -110,3 +110,9 @@ Independent deterministic automation with optional Zetro AI integration
 ## 2026-11-18 — recovery/review hardening
 
 - Candidate 1.0.5 passed its tagged image workflow. Before installation, hardened idle-queue interrupted-run recovery and guarded unsaved review navigation; these source changes use fresh release 1.0.6 rather than reusing a tag. Both releases include the same additive worker/review migration; no deployed data has been migrated by source publication.
+
+## 2026-11-18 — managed Docker worker and human review verified
+
+- CodeShip installed Automation 1.0.6 after coordinated Platform recovery. Checked backup, additive migration, scoped Redis, worker readiness and Platform admission passed. Eleven installed-image tests and both real PostgreSQL/BullMQ suites passed. Targeted Redis access loss/recovery and app restart passed; nine existing run IDs were retained.
+- The user's signed-in browser completed quality run `28zn2i9m` and intentional failed probe `hvm8pels`. Accepted/Needs attention decisions persisted, retained execution state and left the review inbox. Unsaved navigation protection was verified. No password, access grant or database reset was used.
+- Final browser audit identified two audit actions that still permitted enqueue with an unsaved note. Corrected both consistently in fresh candidate 1.0.7, without changing schema or worker contracts. See `docker-worker-verification-2026-11-18.md` for timings, procedure and honest test limits. Tagged CI and image-only rollout remain separate checks for that candidate.

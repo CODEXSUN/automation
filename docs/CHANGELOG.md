@@ -2,13 +2,27 @@
 
 ## Version State
 
-Current version: 1.0.6
+Current version: 1.0.7
 
-Release tag: v-1.0.6
+Release tag: v-1.0.7
 
-Changelog label: v 1.0.6
+Changelog label: v 1.0.7
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.7
+
+### [v 1.0.7] 2026-11-18 - Protect every audit action during unsaved review
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.7.
+- Disable Quality and Quick alongside Failure probe while a review note is unsaved, preventing enqueue before a navigation decision.
+- Record managed worker deployment, installed-image PostgreSQL/BullMQ tests, scoped Redis recovery, preserved history and signed-in browser review evidence.
 
 ## v-1.0.6
 
