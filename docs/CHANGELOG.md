@@ -2,13 +2,31 @@
 
 ## Version State
 
-Current version: 1.0.1
+Current version: 1.0.2
 
-Release tag: v-1.0.1
+Release tag: v-1.0.2
 
-Changelog label: v 1.0.1
+Changelog label: v 1.0.2
 
-Local starting version, not a published release. The release-tag field is a naming convention; no Git tag, commit, push, or SSH key is created by scaffolding.
+Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.2
+
+### [v 1.0.2] 2026-11-18 - Add local PostgreSQL audit queue and run history
+
+#### Database Changes
+
+- Database update: Yes (manual).
+- New module migration: `src/api/modules/business/audit-run/database/migrations/20261118000100_audit_runs.ts`, creating audit_runs and audit_steps. No migration runs during publication or startup.
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.2.
+- Add local PostgreSQL audit queue, idempotent run acceptance, ordered step history, pending cancellation and interrupted-run recovery.
+- Add quick/quality/failure-probe variants and shared UIUX run history/detail and queue pages with timing records.
+- Include the reviewed @workspace/execution 0.1.0 package artifact so this change does not require unpublished sibling Execution files. Existing framework/UI sibling setup remains documented.
+- Adopt the current scoped GitHub helper; publishing uses the reviewed staged files without implicit stage-all, rebase or version changes.
+- Keep database credentials, local job data and runtime logs excluded. No Redis/BullMQ, AI or production deployment is enabled. Existing dependency findings remain documented.
 
 ## v-1.0.1
 

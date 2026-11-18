@@ -10,9 +10,9 @@ export const tools: readonly AutomationTool[] = [
 ];
 
 export function overview(environment: NodeJS.ProcessEnv = process.env): DeskOverview {
-  return { tools: tools.length, phase: 'setup-and-contracts', setup: {
+  return { tools: tools.length, phase: 'local-audit-queue', setup: {
     database: environment.AUTOMATION_DATABASE_URL ? 'configured-unverified' : 'not-configured',
     redis: environment.AUTOMATION_REDIS_URL ? 'configured-unverified' : 'not-configured',
-    aiRequired: false, execution: 'cli-only',
+    aiRequired: false, execution: 'local-postgres',
   } };
 }

@@ -1,4 +1,4 @@
-/** Phase one is a local read-only tool desk. IDs are catalog keys, not entity IDs. */
+/** Operator tool catalog. IDs are catalog keys; durable audit jobs use contracts/run.ts. */
 export type AutomationTool = {
   key: string;
   name: string;
@@ -12,9 +12,9 @@ export type SetupStatus = {
   database: 'configured-unverified' | 'not-configured';
   redis: 'configured-unverified' | 'not-configured';
   aiRequired: false;
-  execution: 'cli-only';
+  execution: 'local-postgres';
 };
-export type DeskOverview = { tools: number; setup: SetupStatus; phase: 'setup-and-contracts' };
+export type DeskOverview = { tools: number; setup: SetupStatus; phase: 'local-audit-queue' };
 
 /** Future persisted dispatch reference; no credentials, prompts or authority in payloads. */
 export type DispatchReference = {

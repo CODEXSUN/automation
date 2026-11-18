@@ -7,6 +7,7 @@ export function auditSetup(root) {
   const failures = [];
   const required = ['AGENTS.md', 'contracts/automation.ts', 'src/api/server.ts',
     'node_modules/@workspace/framework/dist/src/index.js', 'node_modules/@workspace/ui/dist/src/index.js',
+    'node_modules/@workspace/execution/dist/src/index.js',
     'tools/github-helper.mjs', 'tools/version-bump.mjs'];
   for (const name of required) if (!existsSync(path.join(root, name))) failures.push(`Missing ${name}`);
   const governance = process.env.AUTOMATION_GOVERNANCE_PATH || path.resolve(root, '../../mcp-governance/docs/governance.md');

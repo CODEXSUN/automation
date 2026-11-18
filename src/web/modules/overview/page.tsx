@@ -19,10 +19,10 @@ export default function OverviewPage() {
     <p>Run deterministic tools independently. Connect Zetro when a workflow needs AI assistance.</p>
     {error ? <div role="alert"><p>{error}</p><Button variant="outline" onClick={() => setRevision(value => value + 1)}>Retry</Button></div> : !data ? <p role="status">Loading setup…</p> : <dl className="grid gap-3 sm:grid-cols-2">
       <div><dt>Available tools</dt><dd>{data.tools} local CLI tools</dd></div>
-      <div><dt>Execution</dt><dd>Explicit local commands; browser dispatch is not enabled</dd></div>
+      <div><dt>Execution</dt><dd>Local PostgreSQL audit queue; start a fixed variant from Run history</dd></div>
       <div><dt>PostgreSQL configuration</dt><dd>{data.setup.database}</dd></div>
       <div><dt>Redis configuration</dt><dd>{data.setup.redis}</dd></div>
     </dl>}
-    <p className="text-sm text-muted-foreground">Setup and contracts phase. Persistent workflows, queues and schedules are planned. Configuration presence does not verify service readiness.</p>
+    <p className="text-sm text-muted-foreground">Run history records passed, failed and interrupted audits with per-step timings. A separate worker processes pending jobs. Redis, AI and schedules are not required or enabled. Configuration presence does not verify service readiness.</p>
   </CardContent></Card>;
 }

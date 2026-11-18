@@ -12,7 +12,7 @@ After installing dependencies to create `package-lock.json`:
 
 ## Explicit publication
 
-Only when publication is authorized, `npm run github:now -- --publish` enters the interactive workflow. Review files and the version/title, choose whether to bump, and confirm. It then fetches/pulls if an upstream is configured, stages the changes, commits with the reviewed subject, and pushes. Configure the intended remote and upstream first. Scaffolding never connects a remote or publishes automatically. The helper does not create a Git tag.
+After authorization, synchronize with `node tools/github-helper.mjs --sync-only`. Inspect and stage only the intended files, then use `node tools/github-helper.mjs --publish --staged --yes` for the reviewed index. Exact `--file` selections are also supported. The helper checks remote/upstream state, refuses incoming changes with dirty work, never rebases or implicitly stages all files, and verifies the staged tree before committing/pushing. Version preparation is separate; normal source publication creates no tag or deployable image.
 
 ## Optional SSH-key utility
 

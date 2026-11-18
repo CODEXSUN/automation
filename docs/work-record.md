@@ -1,5 +1,26 @@
 # Work Record
 
+## 2026-11-18 — version 1.0.2 source publication preparation
+
+- User authorized version 1.0.2, log update, audit, commit and push of Automation to the configured CODEXSUN/automation main branch. Remote synchronization found no incoming or outgoing commits before preparation.
+- Bumped package/lockfile/changelog with the app version tool, declaring the new audit-run migration as a database change. Updated API specification version and completed the release notes without changing historical published entries.
+- Audited the new Execution dependency: initial source-only packaging failed Node's installed-package TypeScript restriction. Corrected it in the source owner, compiled the public adapter, packaged only JavaScript/declarations/metadata/README and installed the reviewed artifact under vendor. Its SHA-256 and ownership are recorded in vendor/README.md. No sibling repository is included in this source push.
+- Adopted the current scoped GitHub helper from governance. Publication uses the explicitly reviewed index; no implicit stage-all, rebase, forced push, version bump or deployment is part of that helper operation.
+- Final checks passed after the packaging fix: full typecheck/prebuild audit/build/eight app tests/version consistency and the real dedicated PostgreSQL integration suite using the installed artifact. Database status confirmed the existing local migration applied; publication did not rerun app migrations or alter retained history.
+- npm audit still reports four high inherited build-chain findings and no critical findings. These remain disclosed; functional green checks are not a clean dependency-security certification. .env, database credentials, local records, logs, node_modules and build output are excluded from the source commit.
+- This prepares source publication only. It creates no Git tag, deployable image or runtime rollout; pinned container-release contracts and production identity remain outside this task. Push outcome is verified separately against remote main after publication.
+
+## 2026-11-18 — local database audit queue
+
+- Audited 1.0.1: existing desk had no durable jobs, worker or history. Added local PostgreSQL run/step records, explicit Kysely migration, idempotent queue acceptance, one-active-job claims, pending cancellation, expired-lease interruption and a separate draining worker.
+- Added quick/quality/failure-probe variants, fixed script allowlisting, sanitized result classifications, per-step/run durations and queue wait. Added shared Run history/detail and Queue pages with real API binding; raw command output and credentials are not persisted. No arbitrary shell, version mutation, publishing, AI, Redis/BullMQ or external effects are enabled by queue jobs.
+- CodeShip's fixed preparation script created only new automation_local/automation_local_test databases and a dedicated non-superuser role on the existing PostgreSQL service; encrypted credentials were registered before provisioning and materialized into ignored app .env. Successful app migrations and actual queue operations verified authenticated connectivity. Existing service images, bindings, volumes and other application data were unchanged.
+- Shared Execution now supplies bounded shell-free Node process execution. Its package/lockfile and test remain owner-local. App database state remains Automation-owned.
+- Verification: full app typecheck/audited build/eight existing tests/version consistency passed; dedicated PostgreSQL integration test passed including concurrent duplicate requests, conflict detection, single-active claims, green/red persistence, cancellation, interruption and API guard checks. Execution adapter success/nonzero/timeout test passed. Database tests clean only their own rows in the dedicated *_test database.
+- Actual history retained: quick audit passed in 242 ms; early quality audit failed on a real type error and remains red; after correction quality audit passed in 780 ms. Intentional failure-probe remained failed in 148 ms. Browser-created quality run p16eryof passed in 868 ms (setup 98, versions 71, typecheck 490 ms), with 1121 ms queue wait; direct browser reload retained all results. These are samples, not throughput guarantees.
+- Local API and worker started separately. Current schema/readiness and run APIs were verified. No live worker heartbeat or production/multi-user identity is claimed; fixed local guards do not identify individual people. No forced active-job cancellation, automatic retries, retention pruning or arbitrary workflow designer is implemented.
+- Clean setup/run/recovery/performance instructions are in docs/local-audit-process.md. This work remains local and is not a new release, commit, push or deployment. Existing build-chain dependency findings remain unresolved.
+
 ## 2026-11-18 — version 1.0.1 publication preparation
 
 - User authorized connecting only Automation to https://github.com/CODEXSUN/automation.git, setting version 1.0.1, logging changes, committing and pushing.

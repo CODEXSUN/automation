@@ -70,6 +70,9 @@ web_modules/
 .env.*
 !.env.example
 
+# Reviewed shared Execution package; all other tarballs remain ignored.
+!vendor/workspace-execution-0.1.0.tgz
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

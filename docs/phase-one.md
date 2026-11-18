@@ -1,5 +1,7 @@
 # Phase one — setup, contracts and independent desk
 
+Historical first delivery. Local PostgreSQL audit jobs, worker execution and history were subsequently implemented; see [current operating process](local-audit-process.md) and work record. Restrictions below describe the original setup phase.
+
 ## Product decision
 
 Automation is independent of AI. A workflow consists of deterministic tool steps and optionally agent steps through Zetro's versioned public capability interface. It must remain useful with no AI provider configured. Zetro owns client communication and reasoning; Automation owns workflow definitions, timing and orchestration. AI, Automation and Execution foundations retain reusable mechanism ownership.
