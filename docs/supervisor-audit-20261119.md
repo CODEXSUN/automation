@@ -1,6 +1,6 @@
 # Automation supervisor audit — 2026-11-19
 
-Status: release-ready. CodeShip owns the serialized local rollout. No independent deployment from this owner chat.
+Status: done for source release, local deployment and operational audit. Authenticated app-specific viewport/business acceptance remains separately identified below. App owners execute their selected deployments through the shared CodeShip tooling and exclusive lock.
 
 ## Baseline and findings
 
@@ -80,3 +80,7 @@ Manifest migration hashes: original audit runs `f4d3d89e6c18267fb221ac277618e105
 CodeShip can now prepare `automation@v-1.0.8` from this successful release and perform the separately owned serialized rollout/checks above. App-specific browser viewport measurements and actual14395 port retirement checks remain post-deployment acceptance items. Existing running-version identity is not changed by this handoff report.
 
 `foundation/automation` scope audit is done/documentation-only: that owner has AGENTS.md and no executable package/schema/worker. Its report records why no duplicate shared engine/version/deployment is invented. Execution's separate report covers its built vendor artifact and explicit source-publication limit.
+
+## Verified deployed state
+
+On the user's later explicit deploy/audit request, GitHub latest remained1.0.8 and the CodeShip target state showed the exact approved image already installed successfully at2026-11-19T01:47:10UTC. CodeShip recorded checked backup/migration, Platform admission and preserved11 history identities, and later completed a separate actual backup restore rehearsal. Current operational checks passed at14395:4395;4459 is closed, readiness/frontend200, anonymous API401, foreign Origin403, released CodeShip network/identity validation passed, metrics fresh, worker/Redis ready, fairness index present and history count11. No redundant replacement was performed. See `deployments/local-automation-1.0.8.md` for references, exact evidence and the busy-lock limitation on appending a fresh managed verification stage. Authenticated dashboard viewport acceptance was not fabricated from the sign-in-page check.
