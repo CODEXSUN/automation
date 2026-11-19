@@ -12,3 +12,7 @@ Result: deployed and verified at `http://127.0.0.1:14395`, sole binding14395:439
 - Concurrent canonical Zetro-sidecar code and source-only work-record note were retained outside this release. Canonical source was fast-forwarded and its original pending sidecar diff verified preserved; no unapproved sidecar dependency was pinned or published.
 
 Full before/after measurements, CI timings, previous1.0.8 acceptance and current identity are in `../supervisor-audit-20261119.md`. The two original verification gaps are complete; no assigned deployment/viewport blocker remains.
+
+## Subsequent shared-host outage
+
+At 2026-11-19T03:50UTC, a fresh check found the Docker Linux engine unavailable and Automation readiness refused the connection (`ECONNREFUSED`). The supervisor independently confirmed the shared engine outage. The successful deployment and acceptance above are historical evidence, not a claim of current availability. Last durable selected verification passed at03:27:03.662UTC through CodeShip1.0.20; no partial Automation deployment remains. Live operations are paused pending shared-host restoration by its owner. No engine restart, cold boot, lock removal or sibling operation was attempted.
