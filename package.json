@@ -1,6 +1,6 @@
 {
   "name": "@workspace/automation",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "type": "module",
   "engines": {
@@ -37,7 +37,7 @@
     "test:database": "node scripts/test-database.mjs"
   },
   "dependencies": {
-    "@workspace/execution": "file:vendor/workspace-execution-0.2.0.tgz",
+    "@workspace/execution": "file:vendor/workspace-execution-0.2.1.tgz",
     "@workspace/framework": "file:../../foundation/framework",
     "@workspace/sdk": "file:../../packages/sdk",
     "@workspace/ui": "file:../../packages/ui",

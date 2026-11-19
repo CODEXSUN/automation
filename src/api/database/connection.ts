@@ -22,5 +22,8 @@ export function connectDatabase(test = false) {
   const url = new URL(connectionString);
   if (!validDatabaseHost(url)) throw new Error('Job storage requires loopback or the isolated CodeShip database.');
   if (test && (process.env.NODE_ENV !== 'test' || !url.pathname.endsWith('_test'))) throw new Error('Database tests require NODE_ENV=test and a dedicated *_test database.');
-  return new Kysely<AuditDatabase>({ dialect: new PostgresDialect({ pool: new pg.Pool({ connectionString, max: 4, connectionTimeoutMillis: 2000, statement_timeout: 5000, idleTimeoutMillis: 10000 }) }) });
+  const pool=new pg.Pool({ connectionString, max:4, connectionTimeoutMillis:2000, statement_timeout:5000, idleTimeoutMillis:10000 });
+  // pg removes failed idle clients itself. Queries/readiness report recovery; an idle socket must not crash the API/worker.
+  pool.on('error',()=>{});
+  return new Kysely<AuditDatabase>({dialect:new PostgresDialect({pool})});
 }

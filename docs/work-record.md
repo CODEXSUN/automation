@@ -118,3 +118,15 @@ Independent deterministic automation with optional Zetro AI integration
 - Final browser audit identified two audit actions that still permitted enqueue with an unsaved note. Corrected both consistently in fresh candidate 1.0.7, without changing schema or worker contracts. See `docker-worker-verification-2026-11-18.md` for timings, procedure and honest test limits. Tagged CI and image-only rollout remain separate checks for that candidate.
 
 - Final state: 1.0.7 tagged CI succeeded and CodeShip installed the approved image at 17:47:15 UTC. No migration was pending; readiness/admission passed. Browser verified all three unsaved-note action guards and retained review evidence. The final installed-image repeat is blocked by another app's exclusive deployment lock; no repeat test or lock release is claimed. Earlier 1.0.6 Docker suites and 1.0.7 CI passed. No active Automation operation or lock waiter remains.
+
+
+### 2026-11-18 local Docker port contract
+
+Compose now declares `127.0.0.1:14395:4395`. Compose configuration validated without starting containers. Runtime rollout belongs to this app's chat using CodeShip and an approved release; this contract edit does not certify a changed running listener. Preserve private relays, credentials and data.
+
+## 2026-11-19 — supervised fairness and recovery audit
+
+- Candidate1.0.8 bounds audit HTTP acceptance to4 active DB calls/1 per requester, pending work to100/installation and8/requester, and orders dispatch by least recently served requester. Duplicate replay still resolves at capacity; foreign tenant references stay hidden. Added only ordered requester-dispatch index migration; published migrations remain unchanged.
+- Consumes published framework0.2.0/UI0.1.12/SDK0.1.5 pins and immutable Execution0.2.1 vendor artifact. Known read-only PostgreSQL startup failures retry with the shared helper; idle pool socket loss does not crash API/worker. Redis reference batches, producer deadline, reconnect delay and business starts are bounded; business results stay in PG.
+- Local complete verify passed (13 tests, build2.37s); real dedicated-PG baseline,125-request HTTP overload/capacity/fairness/tenant/collision fixture and startup/idle-loss recovery passed through ephemeral test-only byte relays. One bounded idempotent fixture transport retry was recorded. No native process, scheduler, live business row, service or Docker deployment was changed. Later shared-folder rerun hit the owner's missing Fastify/avvio install; no sibling repair attempted.
+- Browser connections are unavailable; new app-specific viewport measurements remain a CodeShip/supervisor check. Shared UI owner supplied independent viewport evidence. Full results, exact files, pending hosted Redis checks and deployment prerequisites are in `supervisor-audit-20261119.md`. CodeShip alone owns actual migration/replacement and14395:4395 verification.

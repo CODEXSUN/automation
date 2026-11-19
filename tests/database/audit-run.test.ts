@@ -8,13 +8,13 @@ import { repository } from '../../src/api/modules/business/audit-run/repository.
 import { workOnce } from '../../src/api/modules/business/audit-run/service.ts';
 import { registerRunRoutes } from '../../src/api/modules/business/audit-run/routes.ts';
 
-test('real PostgreSQL queue: idempotency, serialization, green/red history, cancellation, recovery and API guards', async () => {
+test('real PostgreSQL queue: idempotency, serialization, green/red history, cancellation, recovery and API guards', {timeout:60000},async () => {
   const db = connectDatabase(true), repo = repository(db), created: string[] = [];
   const app = createHttpServer({ name: 'audit-test', logLevel: 'silent' });
   const key = () => `test-${randomUUID()}`;
   try {
+    registerRunRoutes(app, db);await app.ready();
     const migration = await migrator(db).migrateToLatest(); assert.equal(migration.error, undefined);
-    registerRunRoutes(app, db);
     const requestKey = key();
     const duplicates = await Promise.all([repo.enqueue('quick', requestKey), repo.enqueue('quick', requestKey)]);
     created.push(duplicates[0].publicId);

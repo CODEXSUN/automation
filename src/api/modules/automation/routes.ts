@@ -1,5 +1,6 @@
 import { createHttpServer, requireLocalRequest, type ApiDocumentationSpecification } from '@workspace/framework';
 import { overview, tools } from './service.ts';
+import {readFileSync} from 'node:fs';
 
 export function registerAutomationRoutes(app: ReturnType<typeof createHttpServer>) {
   app.get('/api/v1/overview', { preHandler: async(request,reply)=>{if(!request.headers['x-platform-grant'])await requireLocalRequest(request,reply);} }, async (_request, reply) => {
@@ -10,7 +11,7 @@ export function registerAutomationRoutes(app: ReturnType<typeof createHttpServer
 }
 
 export const specification: ApiDocumentationSpecification = {
-  openapi: '3.1.0', info: { title: 'Automation audit desk', version: '1.0.6' },
+  openapi: '3.1.0', info: { title: 'Automation audit desk', version: JSON.parse(readFileSync(new URL('../../../../package.json',import.meta.url),'utf8')).version },
   paths: {
     '/api/v1/overview': { get: { summary: 'Local setup overview; configuration presence is not readiness', responses: { '200': { description: 'Setup overview' }, '403': { description: 'Local origin required' } } } },
     '/api/v1/automations': { get: { summary: 'Read-only catalog of operator CLI tools', responses: { '200': { description: 'Tool catalog' }, '403': { description: 'Local origin required' } } } },

@@ -55,10 +55,10 @@ export default function RunsPage({ onHeaderActions, reviewOnly = false, onReview
     finally { setBusy(false); }
   }, [navigate]);
   useEffect(() => {
-    onHeaderActions(<>{id && <Button size="sm" variant="outline" onClick={() => navigate()}>Back to history</Button>}
+    onHeaderActions(<div className="flex min-w-0 flex-wrap justify-end gap-2">{id && <Button size="sm" variant="outline" onClick={() => navigate()}>Back to history</Button>}
       <Button size="sm" variant="outline" disabled={busy || !!note.trim()} onClick={() => void start('failure-probe')}>Failure probe</Button>
       <Button size="sm" variant="outline" disabled={busy || !!note.trim()} onClick={() => void start('quality')}>Quality audit</Button>
-      <Button size="sm" disabled={busy || !!note.trim()} onClick={() => void start('quick')}>Quick audit</Button></>);
+      <Button size="sm" disabled={busy || !!note.trim()} onClick={() => void start('quick')}>Quick audit</Button></div>);
     return () => onHeaderActions(null);
   }, [id, busy, note, onHeaderActions, navigate, start]);
   if (id) return <RecordDetailV1 title={`Run ${id}`} loading={loading} error={error} onRetry={() => setRevision(value => value + 1)}
@@ -68,7 +68,7 @@ export default function RunsPage({ onHeaderActions, reviewOnly = false, onReview
       <p className="text-sm text-muted-foreground">Review the evidence and record your decision. Review never changes execution results or grants permission to run.</p>
       <label htmlFor="review-note" className="text-sm font-medium">Review note</label><Textarea id="review-note" maxLength={1000} value={note} onChange={e=>setNote(e.target.value)} placeholder="Record findings without credentials or private customer data" />
       <div className="flex flex-wrap gap-2">{[['needs-attention','Needs attention'],['accepted','Mark reviewed']] .map(([decision,label])=><Button key={decision} size="sm" variant={decision==='accepted'?'default':'outline'} disabled={busy} onClick={async()=>{setBusy(true);try{setDetail(await reviewRun(id,decision,note));setNote('');}catch(failure){setError((failure as Error).message);}finally{setBusy(false);}}}>{label}</Button>)}</div>
-      <ol className="space-y-3">{detail.reviews.map((review,index)=><li key={index} className="text-sm"><p className="font-medium">{review.decision} · {review.reviewer} · {new Date(review.createdAt).toLocaleString()}</p><p className="whitespace-pre-wrap text-muted-foreground">{review.note || 'No note'}</p></li>)}</ol>
+      <ol className="space-y-3">{detail.reviews.map((review,index)=><li key={index} className="text-sm"><p className="font-medium">{review.decision} · {review.reviewer} · {new Date(review.createdAt).toLocaleString()}</p><p className="whitespace-pre-wrap break-words text-muted-foreground">{review.note || 'No note'}</p></li>)}</ol>
     </div>}
     sections={detail ? [{ id: 'run', title: 'Execution evidence', fields: [
       {id:'creator',label:'Requested by',value:detail.creator},{id:'reason',label:'Outcome reason',value:detail.outcomeReason??'See step results'},

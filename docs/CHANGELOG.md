@@ -2,13 +2,31 @@
 
 ## Version State
 
-Current version: 1.0.7
+Current version: 1.0.8
 
-Release tag: v-1.0.7
+Release tag: v-1.0.8
 
-Changelog label: v 1.0.7
+Changelog label: v 1.0.8
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.8
+
+### [v 1.0.8] 2026-11-19 - Bound and fairly recover durable audit delivery
+
+#### Database Changes
+
+- Database update: Yes (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.8.
+- Bound audit acceptance to four in-flight database calls, one per requester; return429 with Retry-After instead of building an unbounded pool wait queue.
+- Keep at most100 pending jobs per installation and8 per requester; retain idempotent replay at capacity and fairly serve the least recently dispatched requester.
+- Add only the ordered requester-dispatch index migration; preserve published migrations and all history.
+- Consume published framework0.2.0, UI0.1.12 and SDK0.1.5; tolerate known database startup/recovery errors and idle socket loss without weakening identity/schema failures.
+- Vendor tested Execution0.2.1 with bounded reference batches, producer deadlines and capped reconnect backoff; no automatic business retry.
+- Bound Tailwind discovery, use available dashboard width, wrap actions/notes, and record fixture overload/recovery evidence for CodeShip's serialized deployment handoff.
 
 ## v-1.0.7
 
