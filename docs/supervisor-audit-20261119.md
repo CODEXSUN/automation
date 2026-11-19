@@ -1,6 +1,6 @@
 # Automation supervisor audit — 2026-11-19
 
-Status: working —1.0.8 source candidate verified; preparing immutable tagged CI. CodeShip owns the serialized local rollout. No independent deployment from this owner chat.
+Status: release-ready. CodeShip owns the serialized local rollout. No independent deployment from this owner chat.
 
 ## Baseline and findings
 
@@ -44,12 +44,14 @@ Final artifact: Execution0.2.1, SHA-256 `2e47e09937e7807e141d5493fd009c9a04ddcc0
 | Combined overload/capacity fixture | Passed41.18s over slow Docker-exec byte transport; one bounded idempotent transport retry,103 disposable fixture records cleaned |
 | Real PG startup/idle socket recovery | Passed: two startup attempts,697ms recovery sequence; test929ms, process remained alive |
 | Execution source tests |4 passed,1.96s;125-reference cap, PG/Redis callback recovery, invalid-reference/publication failure, bounded shell-free process outcomes |
-| Real Redis/BullMQ transport-outage fixture | Pending tagged CI's disposable Redis; no administrator credential or live queue namespace reused locally |
+| Real Redis/BullMQ transport-outage fixture | Tagged clean CI passed: two PG jobs retained during Redis startup/outage and automatically completed after recovery; entire fixture8.18s, measured recovery sequence6.11s |
 | App browser viewport measurements | Unavailable: browser inventory empty; IAB and Chrome creation both report unavailable. Shared UI owner separately verified360/768/1440 and larger widths; that is not a new app-specific measurement |
 
 The native5433 test path timed out. Ephemeral read-only `docker exec` byte relays used the existing Automation container's private PostgreSQL network only; no runtime file, image, mount, shared service, registry, native process or deployment changed. All SQL fixtures used the pre-existing dedicated `_test` database and cleaned their own IDs. Initial fixture attempts are not hidden: bypassing HTTP admission with125 raw repository calls hit pool transport timeouts; the final HTTP fixture tests the actual bounded entry path and separately bounds idempotent fixture transport retries.
 
 A later shared-folder unit rerun could not import `avvio` from `foundation/framework/node_modules` (then Fastify itself became absent). Earlier complete verification and real PG checks passed. No sibling dependency installation was repaired by this owner; immutable tagged CI builds fresh pinned dependencies and is the release gate.
+
+The framework owner subsequently restored its own lockfile installation without source/version changes. Read-only app typecheck,13 tests (1.10s) and version checks passed again. The removal's cause was not established or attributed to another worker. No installer was run in shared sibling folders by this owner.
 
 ## Exact owner files
 
@@ -69,6 +71,12 @@ A later shared-folder unit rerun could not import `avvio` from `foundation/frame
 
 ## Handoff
 
-Candidate version1.0.8. No tag/workflow/manifest or production migration execution is claimed yet. CodeShip must wait for successful tagged CI and this report's final release-ready identity. Actual deployment remains its separate stage.
+Version1.0.8 / tag `v-1.0.8` published through the audited GitHub helper, exact commit `d0bd54c42142a373051c85f62a4cf5c75e45e37d`. [Tagged workflow44434505621](https://github.com/CODEXSUN/automation/actions/runs/44434505621) **succeeded**. [Release manifest](https://github.com/CODEXSUN/automation/releases/download/v-1.0.8/release-manifest.json) exists. Approved immutable image and image ID: `ghcr.io/codexsun/automation@sha256:54163c3441276695cf618accd9467e712e5fdab57678e8de778d1b4d4c9226e0` / `sha256:54163c3441276695cf618accd9467e712e5fdab57678e8de778d1b4d4c9226e0`. No production migration or image replacement was executed by this owner.
+
+Clean hosted results:13 unit/tool/auth tests passed (0.887s), all5 real PostgreSQL/BullMQ integration tests passed (12.918s total), zero failures. Original database regression320ms; actor/denial/review BullMQ2165ms; overload fixture707ms (648ms measured work),125 HTTP requests→1 accepted/124 controlled429, exact100 pending bound and zero fixture transport retries; startup/idle recovery413ms (two attempts,372ms measured); Redis startup/outage recovery8181ms. Published image was built only after those checks passed. Local slow byte-relay timings above remain separate evidence, not substituted for hosted results.
+
+Manifest migration hashes: original audit runs `f4d3d89e6c18267fb221ac277618e105abbee95b98aedb4a294efca8ee66833f`; original worker reviews `5b6e248b80e8b9e65dbd9f399e9d3ec0852d9ec1e7ccd7249229f5321c5590a5`; new fairness index `cc61504bd2157488cf9e127adb7f4df45fc8457b5f07015f0700a38bee3835c4`. Git comparison confirms only the new migration path changed; the published original files were not rewritten. CodeShip must independently match these against its applied target history before running the additive migration.
+
+CodeShip can now prepare `automation@v-1.0.8` from this successful release and perform the separately owned serialized rollout/checks above. App-specific browser viewport measurements and actual14395 port retirement checks remain post-deployment acceptance items. Existing running-version identity is not changed by this handoff report.
 
 `foundation/automation` scope audit is done/documentation-only: that owner has AGENTS.md and no executable package/schema/worker. Its report records why no duplicate shared engine/version/deployment is invented. Execution's separate report covers its built vendor artifact and explicit source-publication limit.
