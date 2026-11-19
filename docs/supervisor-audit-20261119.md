@@ -1,6 +1,6 @@
 # Automation supervisor audit — 2026-11-19
 
-Status: done for source release, local deployment and operational audit. Authenticated app-specific viewport/business acceptance remains separately identified below. App owners execute their selected deployments through the shared CodeShip tooling and exclusive lock.
+Status: working —1.0.9 narrow dashboard-wrapper correction. Both requested1.0.8 verification gaps are now complete; evidence below. App owners execute selected deployments through shared CodeShip tooling and the exclusive lock.
 
 ## Baseline and findings
 
@@ -92,3 +92,12 @@ On the user's later explicit deploy/audit request, GitHub latest remained1.0.8 a
 - Concurrent uncommitted work is present in `src/web/modules/home/page.tsx`: a Zetro sidecar import and MainLayout assistant property. It is preserved, excluded from this publication, and not included in the deployed1.0.8 claim. Its dependency adoption/test/release belongs to the coordinated sidecar work; no unrelated SDK/UI integration was silently shipped.
 - A fresh selected-app managed verify attempt through released CodeShip1.0.18 again refused another owner's operation lock. No lock was removed or bypassed, no waiter remains, and no sibling app/native process was stopped. The already recorded successful deployment and read-only audit stand.
 - Remaining concrete verification gaps: a signed-in current dashboard session for app-specific viewport/business acceptance; an available exclusive lock to append a fresh managed verification stage. These are not a deployment failure or justification to replace the matching healthy image. Execution standalone Git publication remains unavailable because its repository has no agreed remote; its exact0.2.1 vendor artifact is already included and tested in the released app. The empty Automation foundation remains documentation-only with no fabricated Docker service.
+
+## Completed signed-in acceptance and selected verification
+
+- Released CodeShip1.0.18 `verify automation` acquired/released the canonical shared lock and recorded `verification:passed` at2026-11-19T02:58:09.320UTC, run `2026-11-19T02-57-46-219Z`. This supersedes the earlier busy-lock limitation.
+- A separate saved-account browser session loaded Overview, live Queue,11-run history and saved accepted review detail. Each route was measured at360/768/1920 only after its real data appeared, not after a fixed sleep. All12 measurements had a visible workspace canvas, loaded content and document/body width equal to viewport; no browser error entries. Queue showed Online/Connected with0 pending/0 running,7 succeeded/4 failed. Existing review/step evidence remained intact; no jobs/reviews were inserted.
+- Credentials stayed in browser-process memory, with no password/credential/grant changes. Normal Sign out completed; reloading the protected detail route remained signed out with no user menu. Viewport override reset. Metrics and screenshots retained under `.archive/automation-worker-release/automation-authenticated-layout-20261119.json` and `automation-{overview,history}-{360,768,1920}.jpg`.
+- Geometry exposed a route-wrapper mistake: Overview/Queue also inherited the governed90% `.workspace-list-content`. At1920, canvas1610px/Overview content1449px; at360,360px/324px. The90% rule itself is intentional for record lists per master-list-standard.md, and is not globally overridden.
+- Following supervisor direction, candidate1.0.9 changes only app wrapper selection: Overview/Queue use `w-full min-w-0 space-y-5 p-4 sm:p-6`; other pages keep `workspace-list-content min-w-0 space-y-5`. This is the existing shared-layout consumer pattern, not an app CSS margin patch. Source preparation is isolated from the canonical Zetro sidecar edits, which remain untouched. Existing approved dependency pins and all migration files are unchanged.
+- Candidate workflow, image, selected update and repeated loaded viewport measurements are pending;1.0.8 remains the last verified deployed release until they succeed.

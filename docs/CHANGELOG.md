@@ -2,13 +2,27 @@
 
 ## Version State
 
-Current version: 1.0.8
+Current version: 1.0.9
 
-Release tag: v-1.0.8
+Release tag: v-1.0.9
 
-Changelog label: v 1.0.8
+Changelog label: v 1.0.9
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.9
+
+### [v 1.0.9] 2026-11-19 - Use dashboard width while preserving list alignment
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.9.
+- Use the established full-width padded container for Overview and Queue only. Keep governed90% list/detail wrappers and header-action alignment intact.
+- Preserve current application data, migrations, worker behavior and existing approved dependency pins. Exclude concurrent unapproved sidecar edits through an isolated release checkout.
 
 ## v-1.0.8
 

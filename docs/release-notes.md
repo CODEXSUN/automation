@@ -1,5 +1,9 @@
 # automation tagged release
 
+## 1.0.9 dashboard container correction
+
+Overview and Queue now use the existing full-width padded dashboard pattern; record lists and review detail retain their governed list alignment. No shared CSS override, dependency upgrade, migration, job mutation or sidecar feature is included. CodeShip should perform an image-only selected Automation update if its actual migration plan confirms none pending. Existing1.0.8 signed-in and managed verification evidence remains recorded separately;1.0.9 requires its own successful workflow, image identity and loaded360/768/1920 checks.
+
 ## 1.0.8 bounded fair delivery and recovery
 
 Adds bounded HTTP acceptance, transactional100/installation and8/requester pending limits, least-recently-served requester dispatch, safe idempotent replay at capacity and a requester-dispatch index. API and worker remain separate supervised processes; per-step Platform authorization remains authoritative. Execution0.2.1 batches at most100 public references, bounds producer commands and reconnect delay and forbids automatic repeat starts. Shared framework0.2.0 handles read-only dependency startup; idle PostgreSQL socket failures no longer terminate the app.

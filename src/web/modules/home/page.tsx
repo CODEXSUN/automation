@@ -48,7 +48,7 @@ export function Application() {
     headerActions={['Run history','Review inbox'].includes(page) ? header : null}
     headerBreadcrumbs={[{ label: currentLabel }, ...(page === 'Run history' && /^\/runs\/[a-z0-9]{8}$/.test(currentPath) ? [{ label: currentPath.split('/')[2] }] : page.startsWith('Module:') && currentPath.endsWith('/new') ? [{ label: 'New' }] : page.startsWith('Module:') && currentPath.endsWith('/edit') ? [{ label: 'Edit' }] : [])]} headerName={null}
     statusLabel={page === 'Page not found' ? 'Page not found' : 'Local audit queue'} workspaceTitle="Overview" versionLabel={`v ${appVersion}`}>
-    <main className="workspace-list-content w-full min-w-0 space-y-5">{guard.dialog}
+    <main className={page==='Overview'||page==='Queue'?'w-full min-w-0 space-y-5 p-4 sm:p-6':'workspace-list-content min-w-0 space-y-5'}>{guard.dialog}
       <ContentBoundary resetKey={page}>
         <Suspense fallback={<AsyncState loading>{null}</AsyncState>}>
           {page === 'Settings' ? <SettingsPage /> : page === 'Automations' ? <AutomationsPage /> : ['Run history','Review inbox'].includes(page) ? <RunsPage onReviewDirty={setReviewDirty} navigateToRun={navigateRun} key={page} reviewOnly={page==='Review inbox'} onHeaderActions={updateHeader} /> : page === 'Queue' ? <QueuePage /> : page === 'Page not found' ?
