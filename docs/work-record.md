@@ -147,3 +147,7 @@ Compose now declares `127.0.0.1:14395:4395`. Compose configuration validated wit
 ## 2026-11-20 — App launcher and tab sessions
 
 Prepared v-1.0.10 from the published v-1.0.9 baseline. The workspace launcher uses the authenticated Platform catalogue; UI 0.1.19 and SDK 0.1.11 are pinned for launcher and tab-session behavior. No database migration or access grant is included. Exact-pinned typecheck, production build, all 13 unit/tool tests and version checks passed. Local Docker and cross-app live verification remain pending.
+
+## 2026-11-20 — Authenticated launcher catalogue
+
+Prepared v-1.0.11 with SDK 0.1.12. Exact-pinned typecheck and production build passed; all unit and tool tests passed. The preceding release remains retained and is not the launcher rollout target. No migration or access grant is included. Local Docker and cross-app live verification remain pending.

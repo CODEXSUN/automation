@@ -2,13 +2,26 @@
 
 ## Version State
 
-Current version: 1.0.10
+Current version: 1.0.11
 
-Release tag: v-1.0.10
+Release tag: v-1.0.11
 
-Changelog label: v 1.0.10
+Changelog label: v 1.0.11
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.11
+
+### [v 1.0.11] 2026-11-20 - Allow the launcher catalogue through the app bridge
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.11.
+- Pin SDK 0.1.12 so the authenticated launcher catalogue is available through the app bridge.
 
 ## v-1.0.10
 
