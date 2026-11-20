@@ -143,3 +143,7 @@ Compose now declares `127.0.0.1:14395:4395`. Compose configuration validated wit
 
 - Signed-in Overview/Queue/history/review detail all loaded at360/768/1920,12 checks, no document overflow or browser errors;11 retained history records. Test login signed out and remained revoked on reload. Released CodeShip selected verify passed02:58:09UTC and released the lock.
 - Measurement found all-page use of governed90% list wrapper also inset dashboards. Candidate1.0.9 applies existing full-width padded pattern to Overview/Queue while preserving list/detail alignment. No shared CSS change or new migration. Isolated source excludes canonical concurrent Zetro sidecar edits; approved pins remain unchanged. Actual candidate test/release/deployment evidence follows in supervisor report.
+
+## 2026-11-20 — App launcher and tab sessions
+
+Prepared v-1.0.10 from the published v-1.0.9 baseline. The workspace launcher uses the authenticated Platform catalogue; UI 0.1.19 and SDK 0.1.11 are pinned for launcher and tab-session behavior. No database migration or access grant is included. Exact-pinned typecheck, production build, all 13 unit/tool tests and version checks passed. Local Docker and cross-app live verification remain pending.

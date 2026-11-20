@@ -2,13 +2,26 @@
 
 ## Version State
 
-Current version: 1.0.9
+Current version: 1.0.10
 
-Release tag: v-1.0.9
+Release tag: v-1.0.10
 
-Changelog label: v 1.0.9
+Changelog label: v 1.0.10
 
 Source version. The release-tag field is a naming convention; this source publication does not create a deployable image or Git tag.
+
+## v-1.0.10
+
+### [v 1.0.10] 2026-11-20 - Add tab-isolated app launcher
+
+#### Database Changes
+
+- Database update: No (manual).
+
+#### App Codebase Changes
+
+- Bumped @workspace/automation version to 1.0.10.
+- Connect the shared app launcher to the authenticated Platform catalogue and pin the tab-session SDK and launcher UI releases.
 
 ## v-1.0.9
 
